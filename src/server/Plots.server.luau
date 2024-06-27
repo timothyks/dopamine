@@ -23,9 +23,17 @@ for _, plot in pairs(workspace:WaitForChild("Plots"):GetChildren()) do
     end
 
     plot:FindFirstChild("ProximityPromptHolder").ProximityPrompt.Triggered:Connect(function(player)
-        plot.Owner.Value = player.Name
-        plot.NameSign.SurfaceGui.TextLabel.Text = player.DisplayName .. " (@" .. player.Name .. ")"
-        plot.ProximityPromptHolder.ProximityPrompt.Enabled = false
+        local playerIsPlotless = true
+        for i, v in pairs(workspace:WaitForChild("Plots"):GetChildren()) do
+            if v.Owner.Value == player.Name then
+                playerIsPlotless = false
+            end
+        end
+        if playerIsPlotless then
+            plot.Owner.Value = player.Name
+            plot.NameSign.SurfaceGui.TextLabel.Text = player.DisplayName .. " (@" .. player.Name .. ")"
+            plot.ProximityPromptHolder.ProximityPrompt.Enabled = false
+        end
     end)
 
     game.Players.PlayerRemoving:Connect(function(player)
