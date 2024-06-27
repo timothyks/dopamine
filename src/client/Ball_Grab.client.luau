@@ -8,7 +8,7 @@ local function onMouseDown(input)
         local mouse = player:GetMouse()
         local target = mouse.Target
         
-        if target and target.Name == "Ball" then
+        if target and target:FindFirstChild("Grabbable") then
             -- Create the attachment points
             local handAttachment = Instance.new("Attachment")
             handAttachment.Name = "HandAttachment"
