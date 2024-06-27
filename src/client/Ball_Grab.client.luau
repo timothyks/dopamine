@@ -15,7 +15,7 @@ local function calculateDistance(point1, point2)
 end
 
 local function onMouseDown(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         local mouse = player:GetMouse()
         local target = mouse.Target
         
