@@ -3,6 +3,7 @@ remoteEvent.Name = "BallOwner"
 
 local billboardGui
 local textLabel
+local stringValue
 
 remoteEvent.OnServerEvent:Connect(function(player, target, nameString, action)
     if action == "add" then
@@ -20,6 +21,11 @@ remoteEvent.OnServerEvent:Connect(function(player, target, nameString, action)
         textLabel.TextColor3 = Color3.new(255, 255, 255)
         textLabel.Text = nameString
         textLabel.TextStrokeTransparency = 0
+
+        stringValue = Instance.new("StringValue")
+        stringValue.Parent = target
+        stringValue.Name = "Owner"
+        stringValue.Value = player.Name
     elseif action == "remove" then
         if billboardGui then
             billboardGui:Destroy()
@@ -27,7 +33,11 @@ remoteEvent.OnServerEvent:Connect(function(player, target, nameString, action)
         if textLabel then
             textLabel:Destroy()
         end
+        if stringValue then
+            stringValue:Destroy()
+        end
         billboardGui = nil
         textLabel = nil
+        stringValue = nil
     end
 end)

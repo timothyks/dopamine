@@ -1,5 +1,5 @@
 local DataStoreService = game:GetService("DataStoreService")
-local playerDataStore = DataStoreService:GetDataStore("leaderstats")
+local playerDataStore = DataStoreService:GetDataStore("currencies")
 
 local function savePlayerData(userId, data)
     local success, errorMessage = pcall(function()
@@ -11,12 +11,14 @@ local function savePlayerData(userId, data)
 end
 
 local function onPlayerRemoving(player)
-    local leaderstats = player:FindFirstChild("leaderstats")
-    if leaderstats then
-        local trophies = leaderstats:FindFirstChild("Trophies")
-        if trophies then
+    local currencies = player:FindFirstChild("currencies")
+    if currencies then
+        local Rubies = currencies:FindFirstChild("Rubies")
+        local Sapphires = currencies:FindFirstChild("Sapphires")
+        if Rubies and Sapphires then
             local data = {
-                Trophies = trophies.Value
+                Rubies = Rubies.Value,
+                Sapphires = Sapphires.Value
             }
             savePlayerData(player.UserId, data)
         end
@@ -24,24 +26,31 @@ local function onPlayerRemoving(player)
 end
 
 local function onPlayerAdded(player)
-    -- LEADERSTATS FOLDER
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
+    -- CURRENCIES FOLDER
+    local currencies = Instance.new("Folder")
+    currencies.Name = "currencies"
+    currencies.Parent = player
 
-    -- TROPHIES INTVALUE
-    local trophies = Instance.new("IntValue")
-    trophies.Name = "Trophies"
-    trophies.Parent = leaderstats
+    -- RUBIES INTVALUE
+    local Rubies = Instance.new("IntValue")
+    Rubies.Name = "Rubies"
+    Rubies.Parent = currencies
+
+    -- SAPPHIRES INTVALUE
+    local Sapphires = Instance.new("IntValue")
+    Sapphires.Name = "Sapphires"
+    Sapphires.Parent = currencies
 
     -- Attempt to load the player's data
     local success, playerData = pcall(function()
         return playerDataStore:GetAsync(player.UserId)
     end)
     if success and playerData then
-        trophies.Value = playerData.Trophies or 0
+        Rubies.Value = playerData.Rubies or 0 
+        Sapphires.Value = playerData.Sapphires or 0 
     else
-        trophies.Value = 0
+        Rubies.Value = 0
+        Sapphires.Value = 0
     end
 end
 

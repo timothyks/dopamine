@@ -1,7 +1,7 @@
 local Balls = require(game.ReplicatedStorage.Shared.Balls)
 
 while true do
-    task.wait(1)
+    task.wait(3)
     local randomBall = Balls.GetRandomBall()
     if randomBall then
         local spawnedBall = Instance.new("Part")

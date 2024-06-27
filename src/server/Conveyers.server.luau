@@ -9,5 +9,13 @@ local function updateConveyerVelocity()
     end
 end
 
+for _, ballDestroyer in pairs(game.Workspace:WaitForChild("BallDestroyers"):GetChildren()) do
+    ballDestroyer.Touched:Connect(function(hit)
+        if hit:FindFirstChild("Grabbable") and hit.Parent.Name == "Spawned_Balls" then
+            hit:Destroy()
+        end
+    end)
+end
+
 
 task.spawn(updateConveyerVelocity)
