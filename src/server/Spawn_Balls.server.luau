@@ -14,6 +14,7 @@ while true do
         spawnedBall.BrickColor = randomBall.Color
         spawnedBall.TopSurface = Enum.SurfaceType.Smooth
         spawnedBall.BottomSurface = Enum.SurfaceType.Smooth
+        spawnedBall.Massless = true
         local grabbableValue = Instance.new("BoolValue")
         grabbableValue.Value = true
         grabbableValue.Name = "Grabbable"
